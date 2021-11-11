@@ -1,3 +1,7 @@
+.shadow-gn-plus {
+    box-shadow: rgba(52, 211, 153, 0.4) 0px 30px 90px;
+}
+
 .card-spin-1 {
     animation: rotateleft 1.5s;
 }
@@ -111,22 +115,17 @@
 
 @keyframes pulse {
     from {
-        top: -4rem;
+        top: -1rem;
         opacity: 0%;
     }
 
-    25% {
-        top: -2rem;
-        opacity: 100%;
-    }
-
-    75% {
-        top: -2rem;
+    25%, 75% {
+        top: 1rem;
         opacity: 100%;
     }
 
     to {
-        top: -4rem;
+        top: -1rem;
         opacity: 0%;
     }
 }
