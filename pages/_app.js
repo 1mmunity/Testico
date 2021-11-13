@@ -11,6 +11,8 @@ function MyApp({ Component, pageProps }) {
   </div>
   <Head>
     <title>Testico</title>
+    <meta property="og:title" content="Testico - Online test" />
+    <meta property="og:description" content="Testico is a questioner made to make online test management easier, for both teachers and students." />
   </Head>
   </>
   )
