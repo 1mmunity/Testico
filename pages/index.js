@@ -4,10 +4,14 @@ import {
   faArrowRight,
   faTrashAlt,
   faBookmark,
-  faArrowDown
+  faArrowDown,
 } from '@fortawesome/free-solid-svg-icons'
+import {
+  ExclamationIcon
+} from '@heroicons/react/outline'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus as CodeStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import Link from 'next/link'
 import Aos from 'aos'
 import React from 'react'
 
@@ -44,10 +48,13 @@ function Segment({ title, content, children }) {
 function ExampleCardsAtTop() {
   return(
     <>
-      <a className='duration-150 transitiona-all fixed w-min -top-2 right-2 text-white bg-gray-400 bg-opacity-50 backdrop-blur rounded-lg p-4 pt-6 rounded-t-none z-10 hover:translate-y-1'
-      href='/dashboard'>
-        <FontAwesomeIcon icon={faUserCircle} size='2x' />
-      </a>
+      <Link
+      href='/dashboard'
+      >
+        <a className='duration-150 transitiona-all fixed w-min -top-2 right-2 text-white bg-gray-400 bg-opacity-50 backdrop-blur rounded-lg p-4 pt-6 rounded-t-none z-10 hover:translate-y-1'>
+          <FontAwesomeIcon icon={faUserCircle} size='2x' />
+        </a>
+      </Link>
       <div className='grid place-items-center py-20 bg-gradient-to-r from-blue-600 to-purple-400 shadow-md'>
         <div className='absolute top-20 mr-20 card-spin-1 card-back-1 -rotate-12 w-7/12 sm:w-1/3 lg:w-1/4 xl:w-1/5 bg-white p-5 rounded-lg shadow-lg'>
           <div className='w-full pb-8'>
@@ -139,6 +146,8 @@ export default function Home() {
 
   function Steps() {
     return(
+      // *these empty <></> tags are used to make folding easier, which is per section.
+      <>
       <>
       <div>
         <Line py={2.5}/>
@@ -156,10 +165,12 @@ export default function Home() {
         you can do the same thing by clicking the button below.</>}
       >
         <div className='my-10'>
-          <a className='group duration-500 px-4 py-2 m-auto w-max border-b-2 border-pink-200 hover:border-pink-400 block rounded-t-lg bg-pink-100' href='/dashboard'>
-            <span className='pb-1 tracking-wider text-pink-400 font-medium'>Go to Dashboard</span>
-            <FontAwesomeIcon icon={faArrowRight} size='sm' className='duration-150 ml-2 group-hover:ml-3 text-pink-400'/>
-          </a>
+          <Link href='/dashboard'>
+            <a className='group duration-500 px-4 py-2 m-auto w-max border-b-2 border-pink-200 hover:border-pink-400 block rounded-t-lg bg-pink-100'>
+              <span className='pb-1 tracking-wider text-pink-400 font-medium'>Go to Dashboard</span>
+              <FontAwesomeIcon icon={faArrowRight} size='sm' className='duration-150 ml-2 group-hover:ml-3 text-pink-400'/>
+            </a>
+          </Link>
         </div>
       </Segment>
   
@@ -232,6 +243,8 @@ export default function Home() {
           </div>
         </div>
       </Segment>
+      </>
+      <>
       <Line py={4} />
       <div>
         <div className='w-max m-auto mb-1'>
@@ -277,6 +290,8 @@ export default function Home() {
           </div>
         </div>
       </Segment>
+      </>
+      <>
       <Line py={4} />
       <div>
         <div className='w-max m-auto mb-1'>
@@ -293,6 +308,30 @@ export default function Home() {
       Fear not! <span className='text-pink-400'>You can edit tests in real time!</span> students
       will receive notifications when you update tests, so that they won't miss
       anything. <span className='text-pink-400'>Teachers can receive submissions in real time too.</span></>}>
+        <div className='relative h-64'>
+          <div className='appear-disappear mt-7 left-0 right-0 absolute bg-white shadow-md text-left rounded-lg border border-gray-200 m-auto w-11/12 sm:w-96'>
+            <div className='bg-gradient-to-r from-red-400 to-pink-500 p-5 rounded-t-lg'>
+            </div>
+            <div className='px-6 py-7'>
+              <div className='mb-2 uppercase tracking-widest text-xs bg-red-400 text-red-100 rounded-lg px-2 py-0.5 w-max'>
+                <ExclamationIcon className='w-3.5 h-3.5 inline-flex align-middle mr-1' />
+                <p className='inline-flex align-middle'>Warning</p>
+              </div>
+              <p className='tracking-wide text-gray-400 text-sm'>
+                Your teacher has changed the test,
+                some answers have been unsubmitted.
+              </p>
+              <div className='pt-7 m-auto w-max'>
+                <span className='bg-gray-100 inline-block text-gray-500 px-3 py-2 rounded-lg uppercase tracking-wider mr-2'>
+                  Ignore
+                </span>
+                <span className='shadow-md bg-gradient-to-r from-red-400 to-pink-500 text-red-100 px-3 py-2 rounded-lg uppercase tracking-wider duration-150 inline-block hover:-translate-y-1'>
+                  Go to top
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </Segment>
       <Line py={2.5} />
       <Circle />
@@ -303,6 +342,19 @@ export default function Home() {
       can chat to teachers.</span></>}>
       </Segment>
       </>
+      </>
+    )
+  }
+
+  function Footer() {
+    return(
+      <div className='w-full py-8 text-center'>
+        <h4 className='font-mono text-gray-400'>
+          <Link href='https://github.com/1mmunity/Testico' target='_blank'>
+            <a className='hover:underline text-pink-400'>Adriel J.</a>
+          </Link> &copy; 2021
+        </h4>
+      </div>
     )
   }
 
@@ -311,6 +363,7 @@ export default function Home() {
     <ExampleCardsAtTop />
     <Headings />
     <Steps />
+    <Footer />
     </>
   )
 }

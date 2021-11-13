@@ -146,3 +146,28 @@
         transform: translateY(0);
     }
 }
+
+.appear-disappear {
+    animation: 8s ease-in-out infinite appeardisappear;
+}
+
+@keyframes appeardisappear {
+    from {
+        opacity: 0;
+    }
+    10% {
+        opacity: 0;
+        top: 2rem;
+    }
+    20%, 80% {
+        opacity: 1;
+        top: 0;
+    }
+    90% {
+        opacity: 0;
+        top: -2rem;
+    }
+    to {
+        opacity: 0;
+    }
+}
