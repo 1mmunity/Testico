@@ -129,3 +129,20 @@
         opacity: 0%;
     }
 }
+
+.bounce-anim {
+    animation: bounce-animation 2.5s infinite;
+    animation-delay: 2s;
+}
+
+@keyframes bounce-animation {
+    from {
+        transform: translateY(0);
+    }
+    7%, 21% {
+        transform: translateY(-0.35rem);
+    }
+    14%, 28% {
+        transform: translateY(0);
+    }
+}

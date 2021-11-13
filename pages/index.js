@@ -1,5 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserCircle, faArrowRight, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import {
+  faUserCircle,
+  faArrowRight,
+  faTrashAlt,
+  faBookmark,
+  faArrowDown
+} from '@fortawesome/free-solid-svg-icons'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus as CodeStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import Aos from 'aos'
 import React from 'react'
 
 // ! How do i fix JIT (tailwindcss) here? (Next 2 functions)
@@ -121,109 +130,182 @@ function Headings() {
   )
 }
 
-function Steps() {
-  return(
-    <>
-    <div>
-      <Line py={2.5}/>
-      <div className='w-max m-auto mb-1'>
-        <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-400 text-white font-bold'>
-          1
-        </span>
-      </div>
-      <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-400'>Create</p>
-    </div>
-    <Line py={2.5} />
-    <Circle />
-    <Segment title='Create an account.' content={<>You can create an account or sign in by <span className='text-pink-400'>clicking 
-      the icon on the top right of your screen</span>, or instead,
-      you can do the same thing by clicking the button below.</>}
-    >
-      <div className='my-10'>
-        <a className='group duration-500 px-4 py-2 m-auto w-max border-b-2 border-pink-200 hover:border-pink-400 block rounded-t-lg bg-pink-100' href='/dashboard'>
-          <span className='pb-1 tracking-wider text-pink-400 font-medium'>Go to Dashboard</span>
-          <FontAwesomeIcon icon={faArrowRight} size='sm' className='duration-150 ml-2 group-hover:ml-3 text-pink-400'/>
-        </a>
-      </div>
-    </Segment>
-
-    <Circle />
-    <Line py={2.5} />
-    <Circle />
-    <Segment title='Create a test.' content={<>After creating or logging into an account,
-    you can create a test in the dashboard. You can also view your tests in the
-    dashboard. Due to limitations, <span className='text-pink-400'>
-    an account can only have up to 5 tests at the same time.</span></>}>
-    <div className='pt-10 sm:px-0 text-left'>
-      <div className='relative border border-gray-200 m-auto w-11/12 sm:w-96 rounded-lg shadow-md'>
-        <div className='bg-gray-100 p-2 px-3 text-gray-500 rounded-t-lg font-medium tracking-wide font-mono'>
-          <p>Tests (3/5)</p>
-          <div className='cursor-pointer duration-150 hover:-translate-y-0.5 absolute shadow-md hover:shadow-lg top-6 right-5 bg-green-500 text-green-100 w-8 h-8 rounded-full inline-flex items-center justify-center'>
-            <p>+</p>
-          </div>
-        </div>
-        <div className='grid grid-rows-3 divide-y'>
-          <div className='p-5 group hover:bg-gray-50 duration-200 cursor-pointer grid grid-cols-12'>
-            <div className='col-span-10'>
-              <div className='mb-1'>
-                <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-indigo-400 font-mono'>Mathematics I</h1>
-                <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
-              </div>
-              <div>
-                <p className='w-max inline-flex bg-green-200 text-green-600 text-xs px-2 py-0.5 rounded-full mr-1'>Done</p>
-                <p className='w-max inline-flex bg-rose-200 text-rose-600 text-xs px-2 py-0.5 rounded-full'>30/30 Participants</p>
-              </div>
-            </div>
-            <div className='grid items-center col-span-2'>
-              <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </span>
-            </div>
-          </div>
-          <div className='p-5 group hover:bg-gray-50 duration-200 cursor-pointer grid grid-cols-12'>
-            <div className='col-span-10'>
-              <div className='mb-1'>
-                <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-green-400 font-mono'>Biology II</h1>
-                <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
-              </div>
-              <div>
-                <p className='w-max inline-flex bg-yellow-200 text-yellow-600 text-xs px-2 py-0.5 rounded-full mr-1'>In Progress</p>
-                <p className='w-max inline-flex bg-rose-200 text-rose-600 text-xs px-2 py-0.5 rounded-full'>26/30 Participants</p>
-              </div>
-            </div>
-            <div className='grid items-center col-span-2'>
-              <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </span>
-            </div>
-          </div>
-          <div className='p-5 group hover:bg-gray-50 duration-200 cursor-pointer grid grid-cols-12'>
-            <div className='col-span-10'>
-              <div className='mb-1'>
-                <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-yellow-700 to-yellow-400 font-mono'>Physics I</h1>
-                <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
-              </div>
-              <div>
-                <p className='w-max inline-flex bg-gray-200 text-gray-500 text-xs px-2 py-0.5 rounded-full mr-1'>Not Public</p>
-              </div>
-            </div>
-            <div className='grid items-center col-span-2'>
-              <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </Segment>
-    <Circle />
-    <Line py={2.5} />
-    </>
-  )
-}
-
 export default function Home() {
+  React.useEffect(() => {
+    Aos.init({
+      duration: 2000
+    })
+  }, [])
+
+  function Steps() {
+    return(
+      <>
+      <div>
+        <Line py={2.5}/>
+        <div className='w-max m-auto mb-1'>
+          <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-400 text-white font-bold'>
+            1
+          </span>
+        </div>
+        <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-400'>Create</p>
+      </div>
+      <Line py={2.5} />
+      <Circle />
+      <Segment title='Create an account.' content={<>You can create an account or sign in by <span className='text-pink-400'>clicking 
+        the icon on the top right of your screen</span>, or instead,
+        you can do the same thing by clicking the button below.</>}
+      >
+        <div className='my-10'>
+          <a className='group duration-500 px-4 py-2 m-auto w-max border-b-2 border-pink-200 hover:border-pink-400 block rounded-t-lg bg-pink-100' href='/dashboard'>
+            <span className='pb-1 tracking-wider text-pink-400 font-medium'>Go to Dashboard</span>
+            <FontAwesomeIcon icon={faArrowRight} size='sm' className='duration-150 ml-2 group-hover:ml-3 text-pink-400'/>
+          </a>
+        </div>
+      </Segment>
+  
+      <Line py={2.5} />
+      <Circle />
+      <Segment title='Create a test.' content={<>After creating or logging into an account,
+      you can create a test in the dashboard. You can also view your tests in the
+      dashboard. Due to limitations, <span className='text-pink-400'>
+      an account can only have up to 5 tests at the same time.</span></>}> 
+        <div data-aos='fade-up' className='mt-10 text-left select-none relative'>
+          <div className='relative border border-gray-200 m-auto w-11/12 sm:w-96 rounded-lg shadow-md'>
+            <div className='bg-gray-100 p-2 px-3 text-gray-500 rounded-t-lg font-medium tracking-wide font-mono'>
+              <p>Tests (3/5)</p>
+              <div className='bounce-anim duration-150 absolute shadow-md top-6 right-5 bg-green-500 text-green-100 w-8 h-8 rounded-full inline-flex items-center justify-center'>
+                <p>+</p>
+              </div>
+            </div>
+            <div className='grid grid-rows-3 divide-y'>
+              <div className='p-5 group hover:bg-gray-50 duration-200 grid grid-cols-12'>
+                <div className='col-span-10'>
+                  <div className='mb-1'>
+                    <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-yellow-700 to-yellow-400 font-mono'>Physics I</h1>
+                    <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
+                  </div>
+                  <div>
+                    <p className='w-max inline-flex bg-gray-200 text-gray-500 text-xs px-2 py-0.5 rounded-full mr-1'>Not Public</p>
+                  </div>
+                </div>
+                <div className='grid items-center col-span-2'>
+                  <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </span>
+                </div>
+              </div>
+              <div className='p-5 group hover:bg-gray-50 duration-200 grid grid-cols-12'>
+                <div className='col-span-10'>
+                  <div className='mb-1'>
+                    <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-green-400 font-mono'>Biology II</h1>
+                    <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
+                  </div>
+                  <div>
+                    <p className='w-max inline-flex bg-yellow-200 text-yellow-600 text-xs px-2 py-0.5 rounded-full mr-1'>In Progress</p>
+                    <p className='w-max inline-flex bg-rose-200 text-rose-600 text-xs px-2 py-0.5 rounded-full'>26/50 Participated</p>
+                  </div>
+                </div>
+                <div className='grid items-center col-span-2'>
+                  <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </span>
+                </div>
+              </div>
+              <div className='p-5 group hover:bg-gray-50 duration-200 grid grid-cols-12'>
+                <div className='col-span-10'>
+                  <div className='mb-1'>
+                    <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-indigo-400 font-mono'>Mathematics I</h1>
+                    <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
+                  </div>
+                  <div>
+                    <p className='w-max inline-flex bg-green-200 text-green-600 text-xs px-2 py-0.5 rounded-full mr-1'>Done</p>
+                    <p className='w-max inline-flex bg-rose-200 text-rose-600 text-xs px-2 py-0.5 rounded-full'>30/30 Participated</p>
+                  </div>
+                </div>
+                <div className='grid items-center col-span-2'>
+                  <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Segment>
+      <Line py={4} />
+      <div>
+        <div className='w-max m-auto mb-1'>
+          <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-red-400 to-yellow-500 text-white font-bold'>
+            2
+          </span>
+        </div>
+        <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-500'>Preview</p>
+      </div>
+      <Line py={2.5} />
+      <Circle />
+      <Segment title='Preview your tests.' 
+      content={<>You can preview and test out what your students see and do on your test
+      even before you make it public. Although, <span className='text-pink-400'>You cannot submit your own tests/preview
+      tests before it is public. Tests are also markdown supported.</span></>}>
+        <div className='relative w-11/12 sm:w-96 m-auto mb-24 mt-8'>
+          <div className='absolute top-0 -right-4'>
+            <p className='text-gray-700 w-28 text-xs tracking-wide text-center font-mono'>Mark and come back later</p>
+            <FontAwesomeIcon icon={faArrowDown} className='text-gray-200'/>
+          </div>
+        </div>
+        <div data-aos='fade-up' className='relative overflow-hidden mt-7 bg-white shadow-md text-left rounded-lg border border-gray-200 m-auto w-11/12 sm:w-96'>
+          <FontAwesomeIcon icon={faBookmark} size='3x' className='absolute text-gray-400 -top-5 right-5 hover:-top-1 duration-150 hover:text-red-500' />
+          <div className='p-2 px-3 grid grid-cols-10 rounded-t-lg bg-gray-100'>
+            <p className='col-span-8 inline-flex tracking-wide font-mono font-medium text-gray-500'>Question 4</p>
+          </div>
+          <div className='p-5'>
+            <p className='text-yellow-100 bg-yellow-400 px-1.5 py-0.5 mb-1 rounded w-max text-xs tracking-wide font-medium'>5 Points</p>
+            <div className='text-gray-900 font-medium tracking-wide'>
+              Which one below returns <span className='text-pink-400 bg-pink-200 px-1 py-0.5 text-xs rounded font-mono tracking-widest mx-0.5'>true</span>?
+              <SyntaxHighlighter language='js' style={CodeStyle} className='rounded-lg shadow-md'>
+                {`function fn(a, b) {\n   return (a + b)/2;\n}`}
+              </SyntaxHighlighter>
+            </div>
+            {['fn(6, 6) == 6', 'fn(5, 3) == 8', 'fn(10, 0) == 7', 'fn(7, 1) == 8'].map((v, k) => {
+              return <div className={`flex items-center my-4 ${k == 3 && 'mb-0'}`} key={k}>
+                <input type="radio" className="h-4 w-4 border-gray-300" checked={k == 0} readOnly/>
+                <label htmlFor="country-option-1" className="text-sm tracking-wide font-medium text-gray-900 ml-2 block">
+                  {v}
+                </label>
+              </div>
+            })}
+          </div>
+        </div>
+      </Segment>
+      <Line py={4} />
+      <div>
+        <div className='w-max m-auto mb-1'>
+          <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-green-400 text-white font-bold'>
+            3
+          </span>
+        </div>
+        <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-400'>Public</p>
+      </div>
+      <Line py={2.5} />
+      <Circle />
+      <Segment title='Updates realtime.' 
+      content={<>Forgot to change something and you already made it public?
+      Fear not! <span className='text-pink-400'>You can edit tests in real time!</span> students
+      will receive notifications when you update tests, so that they won't miss
+      anything. <span className='text-pink-400'>Teachers can receive submissions in real time too.</span></>}>
+      </Segment>
+      <Line py={2.5} />
+      <Circle />
+      <Segment title='Intgegrated chats.' 
+      content={<>Need to tell something to your students or your students need to tell you
+      something? A realtime chat has been integrated into the
+      side of the site. <span className='text-pink-400'>Teachers can broadcast or chat to students and students
+      can chat to teachers.</span></>}>
+      </Segment>
+      </>
+    )
+  }
+
   return(
     <>
     <ExampleCardsAtTop />
