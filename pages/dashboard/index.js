@@ -2,6 +2,7 @@ import useUser from '../../lib/useUser'
 import Loading from '../../components/Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faExclamationTriangle, faFolderOpen, faSignOutAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 import { deleteTest } from '../../lib/testMutations'
@@ -70,6 +71,11 @@ export default function Dashboard() {
   }, [data, loading])
   return (
     <>
+    <Head>
+      <title>Dashboard</title>
+      <meta property="og:title" content="Dashboard" />
+      <meta property="og:description" content="Dashboard for Testico." />
+    </Head>
     {_loading && <Loading />}
 
     {user && <div>

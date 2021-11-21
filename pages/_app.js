@@ -29,6 +29,7 @@ function MyApp({ Component, pageProps }) {
     <title>Testico</title>
     <meta property="og:title" content="Testico - Online test" />
     <meta property="og:description" content="Testico is a questioner made to make online test management easier, for both teachers and students." />
+    <meta name="theme-color" content="#4F46E5" />
   </Head>
   </>
   )

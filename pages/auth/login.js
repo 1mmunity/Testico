@@ -61,6 +61,8 @@ export default function Login() {
     <>
     <Head>
       <title>Login</title>
+      <meta property="og:title" content="Login" />
+      <meta property="og:description" content="Login to create tests." />
     </Head>
     <div className='grid items-center justify-center h-screen'>
       <Snackbar message={formik.errors.error} open={formik.errors.error}

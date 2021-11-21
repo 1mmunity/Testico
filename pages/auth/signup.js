@@ -47,6 +47,8 @@ export default function Login() {
     <>
     <Head>
       <title>Sign Up</title>
+      <meta property="og:title" content="Sign Up" />
+      <meta property="og:description" content="Sign up to testico to create tests." />
     </Head>
     <div className='grid items-center justify-center h-screen'>
       <div>
