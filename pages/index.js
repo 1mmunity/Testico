@@ -196,7 +196,7 @@ export default function Home() {
                     <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
                   </div>
                   <div>
-                    <p className='w-max inline-flex bg-gray-200 text-gray-500 text-xs px-2 py-0.5 rounded-full mr-1'>Not Public</p>
+                    <p className='w-max inline-flex bg-gray-200 text-gray-500 text-xs px-2 py-0.5 rounded-full mr-1'>Private</p>
                   </div>
                 </div>
                 <div className='grid items-center col-span-2'>
