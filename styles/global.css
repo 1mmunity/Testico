@@ -171,3 +171,31 @@
         opacity: 0;
     }
 }
+
+.top-to-down {
+    animation: .25s ease toptodown;
+}
+
+@keyframes toptodown {
+    from {
+        transform: translateY(-1rem);
+        opacity: 0%;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 100%;
+    }
+}
+
+.appear-opacity {
+    animation: .25s ease-in-out appearopacity;
+}
+
+@keyframes appearopacity {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}

@@ -1,4 +1,4 @@
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSignInAlt, faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import Head from 'next/head'
@@ -63,51 +63,54 @@ export default function Login() {
           </Link>
           <div className='p-7 grid gap-4 border-r border-l border-gray-200'>
             <Input
-            className='hover:border-red-400 focus:border-red-400'
             type='text'
             placeholder='Username'
             id='username'
             label='Username'
             value={formik.values.username}
+            disabled={formik.isSubmitting}
             onChange={formik.handleChange}
             required
             />
             <Input
-            className='hover:border-red-400 focus:border-red-400'
             type='email'
             placeholder='Email'
             id='email'
             label='Email'
             value={formik.values.email}
+            disabled={formik.isSubmitting}
             onChange={formik.handleChange}
             error={formik.errors.email}
             required
             />
             <Input
-            className='hover:border-red-400 focus:border-red-400'
             type='password'
             placeholder='Password'
             id='password'
             label='Password'
             value={formik.values.password}
+            disabled={formik.isSubmitting}
             onChange={formik.handleChange}
             error={formik.errors.confirm_password}
             required
             />
             <Input
-            className='hover:border-red-400 focus:border-red-400'
             type='password'
             placeholder='Confirm Password'
             id='confirm_password'
             label='Confirm Password'
             value={formik.values.confirm_password}
+            disabled={formik.isSubmitting}
             onChange={formik.handleChange}
             error={formik.errors.confirm_password}
             required
             />
           </div>
-          <button type='submit' className='rounded-t-none w-full bg-gradient-to-r from-red-600 to-pink-400 rounded-b-lg py-2 hover:brightness-95 duration-150'>
-            <FontAwesomeIcon icon={faSignInAlt} className='text-pink-100'/>
+          <button type='submit' className='rounded-t-none disabled:cursor-not-allowed w-full bg-gradient-to-r text-red-100 from-red-600 to-pink-400 rounded-b-lg py-2 hover:brightness-95 duration-150'
+          disabled={formik.isSubmitting}>
+            {!formik.isSubmitting?
+            <FontAwesomeIcon icon={faSignInAlt}/>:
+            <FontAwesomeIcon icon={faCircleNotch} spin />}
           </button>
         </form>
         <Link href='/auth/login'>
