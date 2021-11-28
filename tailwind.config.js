@@ -7,11 +7,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        orange: colors.orange,
-        cyan: colors.cyan,
         rose: colors.rose,
-        emerald: colors.emerald,
-        coolgray: colors.coolGray
+        cyan: colors.cyan,
+        orange: colors.orange,
+        sky: colors.sky,
+        fuchsia: colors.fuchsia
+      },
+      zIndex: {
+        '-1': -1
       }
     },
   },

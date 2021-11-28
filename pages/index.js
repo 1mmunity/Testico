@@ -1,369 +1,219 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faUserCircle,
-  faArrowRight,
-  faTrashAlt,
-  faBookmark,
-  faArrowDown,
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  ExclamationIcon
-} from '@heroicons/react/outline'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vscDarkPlus as CodeStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-import Link from 'next/link'
-import Aos from 'aos'
-import React from 'react'
+import ButtonLink from "../components/ButtonLink";
+import Link from "../components/Link";
+import React from "react";
+import Markdown from "../components/Markdown";
+import Radio from "../components/Radio";
+import TextareaAutosize from "react-textarea-autosize";
 
-// ! How do i fix JIT (tailwindcss) here? (Next 2 functions)
-function Line({ py }) {
-  return <div className={`border-gray-200 border-r-2 border-dashed w-min m-auto`} style={{ padding: `${py}rem 0` }}></div>
+const markdownExample = `
+# Heading  
+This is **a bolded text**.  
+This is *an italic text*.  
+This is ***both***.  
+This is a ~~striketrough text~~.  
+This is \`an inline code\`.  
+Below is a code block.
+\`\`\`cpp
+#include <iostream>
+int main() {
+  std::cout << "Hello, World!" << std::endl;
+  return 0;
 }
-
-function LinePlaceholder({ span1, span2 }) {
-  return <div className='grid grid-cols-10 gap-2'>
-    <div className={`bg-gray-200 p-2 rounded`} style={{ gridColumn: `span ${span1} / span ${span1}`}}></div>
-    <div className={`bg-gray-200 p-2 rounded`} style={{ gridColumn: `span ${span2} / span ${span2}`}}></div>
-  </div>
-}
-
-function Circle() {
-  return <div className='w-2 h-2 rounded-full bg-gray-200 m-auto'></div>
-}
-
-function Segment({ title, content, children }) {
-  return(
-    <>
-      <div className='text-center my-5'>
-        <h1 className='font-bold text-3xl mb-3'>{title}</h1>
-        <p className='text-gray-400 tracking-wide text-justify w-3/4 sm:w-1/2 lg:w-1/3 m-auto'>
-          {content}
-        </p>
-        {children}
-      </div>
-    </>
-  )
-}
-
-function ExampleCardsAtTop() {
-  return(
-    <>
-      <Link
-      href='/dashboard'
-      >
-        <a className='duration-150 transitiona-all fixed w-min -top-2 right-2 text-white bg-gray-400 bg-opacity-50 backdrop-blur rounded-lg p-4 pt-6 rounded-t-none z-10 hover:translate-y-1'>
-          <FontAwesomeIcon icon={faUserCircle} size='2x' />
-        </a>
-      </Link>
-      <div className='grid place-items-center py-20 bg-gradient-to-r from-blue-600 to-purple-400 shadow-md'>
-        <div className='absolute top-20 mr-20 card-spin-1 card-back-1 -rotate-12 w-7/12 sm:w-1/3 lg:w-1/4 xl:w-1/5 bg-white p-5 rounded-lg shadow-lg'>
-          <div className='w-full pb-8'>
-            <div className='float-right bg-yellow-200 px-2 py-0.5 rounded-full'>
-              <p className='text-red-400 text-xs'>5 Pts</p>
-            </div>
-          </div>
-          <div className='grid grid-rows-3 gap-2 pb-4'>
-            <LinePlaceholder span1={6} span2={4} />
-            <LinePlaceholder span1={2} span2={8} />
-            <LinePlaceholder span1={5} span2={5} />
-          </div>
-          <div className='grid grid-rows-4 gap-2'>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-red-100 p-2 col-span-1 rounded-full'></div>
-              <div className='bg-red-100 p-2 col-span-9 rounded'></div>
-            </div>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-red-100 p-2 col-span-1 rounded-full to-be-fullred2'></div>
-              <div className='bg-red-100 p-2 col-span-9 rounded to-be-fullred2'></div>
-            </div>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-green-100 p-2 col-span-1 rounded-full to-be-lgreen2'></div>
-              <div className='bg-green-100 p-2 col-span-9 rounded to-be-lgreen2'></div>
-            </div>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-red-100 p-2 col-span-1 rounded-full'></div>
-              <div className='bg-red-100 p-2 col-span-9 rounded'></div>
-            </div>
-          </div>
-        </div>
-        <div className='ml-20 absolute top-20 card-spin-2 rotate-12 w-7/12 sm:w-1/3 lg:w-1/4 xl:w-1/5 bg-white p-5 rounded-lg shadow-lg'>
-          <div className='w-full pb-8'>
-            <div className='float-right bg-yellow-200 px-2 py-0.5 rounded-full'>
-              <p className='text-yellow-400 text-xs'>5 Pts</p>
-            </div>
-          </div>
-          <div className='grid grid-rows-3 gap-2 pb-4'>
-            <LinePlaceholder span1={6} span2={4} />
-            <LinePlaceholder span1={2} span2={8} />
-            <LinePlaceholder span1={5} span2={5} />
-          </div>
-          <div className='grid grid-rows-4 gap-2'>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-red-100 p-2 col-span-1 rounded-full to-be-fullred'></div>
-              <div className='bg-red-100 p-2 col-span-9 rounded to-be-fullred'></div>
-            </div>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-red-100 p-2 col-span-1 rounded-full'></div>
-              <div className='bg-red-100 p-2 col-span-9 rounded'></div>
-            </div>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-green-100 p-2 col-span-1 rounded-full to-be-lgreen'></div>
-              <div className='bg-green-100 p-2 col-span-9 rounded to-be-lgreen'></div>
-            </div>
-            <div className='grid grid-cols-10 gap-4'>
-              <div className='bg-red-100 p-2 col-span-1 rounded-full'></div>
-              <div className='bg-red-100 p-2 col-span-9 rounded'></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
-function Headings() {
-  return(
-    <div>
-      <h1 className='text-center text-gradient-change w-min m-auto text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-400 to-blue-600 text-4xl font-bold pt-48 uppercase tracking-widest inset'>Testico</h1>
-      <p className='opacity-40 text-center text-lg tracking-wide'>Got a test? We got you.</p>
-      <form className='block shadow-md bg-gray-50 p-3 m-auto rounded-lg mt-5 w-max' onSubmit={(e) => {
-        e.preventDefault()
-        window.location.href = `/tests/${e.target[0].value}`
-      }}>
-        <input type='text' className='col-span-4 w-full bg-gray-200 outline-none px-4 py-2 text-sm rounded-lg' placeholder='123 456' maxLength={6} />
-        <p className='text-xs text-center text-gray-300 tracking-wider mt-0.5'>Join a live test (6-digit code)</p>
-      </form>
-    </div>
-  )
-}
+// Hello, World!
+\`\`\`
+***
+Above is a horizontal line.  
+> ...and there are much more! like links, images, tables, and so on.
+> Visit the [Markdown Guide](https://www.markdownguide.org/cheat-sheet/) for more information.
+> Both basic syntax and extended syntax are supported. You can also bookmark a question
+> and return to it later.
+`.trim()
 
 export default function Home() {
-  React.useEffect(() => {
-    Aos.init({
-      duration: 2000
-    })
-  }, [])
-
-  function Steps() {
-    return(
-      // *these empty <></> tags are used to make folding easier, which is per section.
-      <>
-      <>
-      <div>
-        <Line py={2.5}/>
-        <div className='w-max m-auto mb-1'>
-          <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-400 text-white font-bold'>
-            1
-          </span>
-        </div>
-        <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-400'>Create</p>
-      </div>
-      <Line py={2.5} />
-      <Circle />
-      <Segment title='Create an account.' content={<>You can create an account or sign in by <span className='text-pink-400'>clicking 
-        the icon on the top right of your screen</span>, or instead,
-        you can do the same thing by clicking the button below.</>}
-      >
-        <div className='my-10'>
-          <Link href='/dashboard'>
-            <a className='group duration-500 px-4 py-2 m-auto w-max border-b-2 border-pink-200 hover:border-pink-400 block rounded-t-lg bg-pink-100'>
-              <span className='pb-1 tracking-wider text-pink-400 font-medium'>Go to Dashboard</span>
-              <FontAwesomeIcon icon={faArrowRight} size='sm' className='duration-150 ml-2 group-hover:ml-3 text-pink-400'/>
-            </a>
-          </Link>
-        </div>
-      </Segment>
-  
-      <Line py={2.5} />
-      <Circle />
-      <Segment title='Create a test.' content={<>After creating or logging into an account,
-      you can create a test in the dashboard. You can also view your tests in the
-      dashboard. Due to limitations, <span className='text-pink-400'>
-      an account can only have up to 5 tests at the same time.</span></>}> 
-        <div data-aos='fade-up' className='mt-10 text-left select-none relative'>
-          <div className='relative border border-gray-200 m-auto w-11/12 sm:w-96 rounded-lg shadow-md'>
-            <div className='bg-gray-100 p-2 px-3 text-gray-500 rounded-t-lg font-medium tracking-wide font-mono'>
-              <p>Tests (3/5)</p>
-              <div className='bounce-anim duration-150 absolute shadow-md top-6 right-5 bg-green-500 text-green-100 w-8 h-8 rounded-full inline-flex items-center justify-center'>
-                <p>+</p>
-              </div>
-            </div>
-            <div className='grid grid-rows-3 divide-y'>
-              <div className='p-5 group hover:bg-gray-50 duration-200 grid grid-cols-12'>
-                <div className='col-span-10'>
-                  <div className='mb-1'>
-                    <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-yellow-700 to-yellow-400 font-mono'>Physics I</h1>
-                    <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
-                  </div>
-                  <div>
-                    <p className='w-max inline-flex bg-gray-200 text-gray-500 text-xs px-2 py-0.5 rounded-full mr-1'>Private</p>
-                  </div>
-                </div>
-                <div className='grid items-center col-span-2'>
-                  <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </span>
-                </div>
-              </div>
-              <div className='p-5 group hover:bg-gray-50 duration-200 grid grid-cols-12'>
-                <div className='col-span-10'>
-                  <div className='mb-1'>
-                    <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-green-400 font-mono'>Biology II</h1>
-                    <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
-                  </div>
-                  <div>
-                    <p className='w-max inline-flex bg-yellow-200 text-yellow-600 text-xs px-2 py-0.5 rounded-full mr-1'>In Progress</p>
-                    <p className='w-max inline-flex bg-rose-200 text-rose-600 text-xs px-2 py-0.5 rounded-full'>26/50 Participated</p>
-                  </div>
-                </div>
-                <div className='grid items-center col-span-2'>
-                  <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </span>
-                </div>
-              </div>
-              <div className='p-5 group hover:bg-gray-50 duration-200 grid grid-cols-12'>
-                <div className='col-span-10'>
-                  <div className='mb-1'>
-                    <h1 className='text-xl w-max bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-indigo-400 font-mono'>Mathematics I</h1>
-                    <h4 className='text-xs tracking-wide text-gray-300'>(Click to view)</h4>
-                  </div>
-                  <div>
-                    <p className='w-max inline-flex bg-green-200 text-green-600 text-xs px-2 py-0.5 rounded-full mr-1'>Done</p>
-                    <p className='w-max inline-flex bg-rose-200 text-rose-600 text-xs px-2 py-0.5 rounded-full'>30/30 Participated</p>
-                  </div>
-                </div>
-                <div className='grid items-center col-span-2'>
-                  <span className='inline-flex w-10 h-10 items-center justify-center rounded-lg bg-red-100 text-red-400 hover:bg-red-400 hover:text-red-100 duration-150'>
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Segment>
-      </>
-      <>
-      <Line py={4} />
-      <div>
-        <div className='w-max m-auto mb-1'>
-          <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-red-400 to-yellow-500 text-white font-bold'>
-            2
-          </span>
-        </div>
-        <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-500'>Preview</p>
-      </div>
-      <Line py={2.5} />
-      <Circle />
-      <Segment title='Preview your tests.' 
-      content={<>You can preview and test out what your students see and do on your test
-      even before you make it public. Although, <span className='text-pink-400'>You cannot submit your own tests/preview
-      tests before it is public. Tests are also markdown supported.</span></>}>
-        <div className='relative w-11/12 sm:w-96 m-auto mb-24 mt-8'>
-          <div className='absolute top-0 -right-4'>
-            <p className='text-gray-700 w-28 text-xs tracking-wide text-center font-mono'>Mark and come back later</p>
-            <FontAwesomeIcon icon={faArrowDown} className='text-gray-200'/>
-          </div>
-        </div>
-        <div data-aos='fade-up' className='relative overflow-hidden mt-7 bg-white shadow-md text-left rounded-lg border border-gray-200 m-auto w-11/12 sm:w-96'>
-          <FontAwesomeIcon icon={faBookmark} size='3x' className='absolute text-gray-400 -top-5 right-5 hover:-top-1 duration-150 hover:text-red-500' />
-          <div className='p-2 px-3 grid grid-cols-10 rounded-t-lg bg-gray-100'>
-            <p className='col-span-8 inline-flex tracking-wide font-mono font-medium text-gray-500'>Question 4</p>
-          </div>
-          <div className='p-5'>
-            <p className='text-yellow-100 bg-yellow-400 px-1.5 py-0.5 mb-1 rounded w-max text-xs tracking-wide font-medium'>5 Points</p>
-            <div className='text-gray-900 font-medium tracking-wide'>
-              Which one below returns <span className='text-pink-400 bg-pink-200 px-1 py-0.5 text-xs rounded font-mono tracking-widest mx-0.5'>true</span>?
-              <SyntaxHighlighter language='js' style={CodeStyle} className='rounded-lg shadow-md'>
-                {`function fn(a, b) {\n   return (a + b)/2;\n}`}
-              </SyntaxHighlighter>
-            </div>
-            {['fn(6, 6) == 6', 'fn(5, 3) == 8', 'fn(10, 0) == 7', 'fn(7, 1) == 8'].map((v, k) => {
-              return <div className={`flex items-center my-4 ${k == 3 && 'mb-0'}`} key={k}>
-                <input type="radio" className="h-4 w-4 border-gray-300" checked={k == 0} readOnly/>
-                <label htmlFor="country-option-1" className="text-sm tracking-wide font-medium text-gray-900 ml-2 block">
-                  {v}
-                </label>
-              </div>
-            })}
-          </div>
-        </div>
-      </Segment>
-      </>
-      <>
-      <Line py={4} />
-      <div>
-        <div className='w-max m-auto mb-1'>
-          <span className='inline-flex w-10 h-10 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-green-400 text-white font-bold'>
-            3
-          </span>
-        </div>
-        <p className='w-max m-auto font-bold text-3xl tracking-wide text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-green-400'>Public</p>
-      </div>
-      <Line py={2.5} />
-      <Circle />
-      <Segment title='Updates realtime.' 
-      content={<>Forgot to change something and you already made it public?
-      Fear not! <span className='text-pink-400'>You can edit tests in real time!</span> students
-      will receive notifications when you update tests, so that they won't miss
-      anything. <span className='text-pink-400'>Teachers can receive submissions in real time too.</span></>}>
-        <div className='relative h-64'>
-          <div className='appear-disappear mt-7 left-0 right-0 absolute bg-white shadow-md text-left rounded-lg border border-gray-200 m-auto w-11/12 sm:w-96'>
-            <div className='bg-gradient-to-r from-red-400 to-pink-500 p-5 rounded-t-lg'>
-            </div>
-            <div className='px-6 py-7'>
-              <div className='mb-2 uppercase tracking-widest text-xs bg-red-400 text-red-100 rounded-lg px-2 py-0.5 w-max'>
-                <ExclamationIcon className='w-3.5 h-3.5 inline-flex align-middle mr-1' />
-                <p className='inline-flex align-middle'>Warning</p>
-              </div>
-              <p className='tracking-wide text-gray-400 text-sm'>
-                Your teacher has changed the test,
-                some answers have been unsubmitted.
-              </p>
-              <div className='pt-7 m-auto w-max'>
-                <span className='bg-gray-100 inline-block text-gray-500 px-3 py-2 rounded-lg uppercase tracking-wider mr-2'>
-                  Ignore
-                </span>
-                <span className='shadow-md bg-gradient-to-r from-red-400 to-pink-500 text-red-100 px-3 py-2 rounded-lg uppercase tracking-wider duration-150 inline-block hover:-translate-y-1'>
-                  Go to top
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Segment>
-      <Line py={2.5} />
-      <Circle />
-      <Segment title='Intgegrated chats.' 
-      content={<>Need to tell something to your students or your students need to tell you
-      something? A realtime chat has been integrated into the
-      side of the site. <span className='text-pink-400'>Teachers can broadcast or chat to students and students
-      can chat to teachers.</span></>}>
-      </Segment>
-      </>
-      </>
-    )
-  }
-
-  function Footer() {
-    return(
-      <div className='w-full py-8 text-center'>
-        <h4 className='font-mono text-gray-400'>
-          <Link href='https://github.com/1mmunity/Testico' target='_blank'>
-            <a className='hover:underline text-pink-400'>Adriel J.</a>
-          </Link> &copy; 2021
-        </h4>
-      </div>
-    )
-  }
-
-  return(
+  return (
     <>
-    <ExampleCardsAtTop />
-    <Headings />
-    <Steps />
-    <Footer />
+    <div className='py-24 pt-36 px-5 sm:px-14 bg-gray-800 text-white text-center overflow-hidden relative'>
+      <h1 className='font-black text-green-400 text-6xl tracking-wide'>
+        Testico
+      </h1>
+      <p className='font-light text-2xl mt-3 text-white'>
+        Testico is a web application to help you create and manage tests.
+      </p>
+      <label
+      className='group mt-10 inline-flex w-min mx-auto border-2 border-gray-600 hover:border-green-400 duration-150 rounded-full shadow-md px-4 py-2 bg-gray-700'
+      htmlFor='enter-code'>
+        <input
+        className='outline-none bg-transparent'
+        type='text'
+        placeholder='6-digit code'
+        id='enter-code'
+        />
+        <i className='fas fa-search m-auto ml-2 text-gray-600 group-hover:text-green-400 duration-150'></i>
+      </label>
+      <p className='text-xs opacity-50 mt-1'>click <b>enter</b> to join</p>
+    </div>
+    <div className='bg-gray-900 p-5'>
+      <div className='py-5 sm:px-5 w-full grid lg:grid-cols-3 gap-y-16 gap-x-8'>
+        <div className='opacity-0 fade-in'>
+          <i className='shadow-md fas fa-shield-alt rounded-lg text-2xl bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white text-opacity-80 w-12 h-12 items-center justify-center flex'></i>
+          <div className='mt-2'>
+            <h2 className='text-white text-3xl font-light'>Secure.</h2>
+            <p className='text-white text-lg justify mt-4 text-opacity-50 tracking-wide text-justify'>
+              Unlike any other questioner web application, the answers aren't stored in the frontend
+              but the answers are stored in the backend. This means that the answers are not visible to
+              anyone except the creator of the test, no script can bypass this unless configured from the
+              server.
+            </p>
+          </div>
+        </div>
+        <div className='opacity-0 fade-in a-delay-1'>
+          <i className='shadow-md fas fa-stopwatch rounded-lg text-2xl bg-gradient-to-br from-yellow-400 to-orange-500 text-white text-opacity-80 w-12 h-12 items-center justify-center flex'></i>
+          <div className='mt-2'>
+            <h2 className='text-white text-3xl font-light'>Real-time.</h2>
+            <p className='text-white text-lg justify mt-4 text-opacity-50 tracking-wide text-justify'>
+              Testico provides realtime connection the server and back. Questions or tests update realtimes
+              when your teacher updates it. You can, as a teacher, chat to students and you also can chat to teachers.
+              You can ask or answer questions by chatting. There is also a realtime log for teachers.
+            </p>
+          </div>
+        </div>
+        <div className='opacity-0 fade-in a-delay-2'>
+          <i className='shadow-md fas fa-pencil-ruler rounded-lg text-2xl bg-gradient-to-br from-sky-400 to-indigo-500 text-white text-opacity-80 w-12 h-12 items-center justify-center flex'></i>
+          <div className='mt-2'>
+            <h2 className='text-white text-3xl font-light'>Design.</h2>
+            <p className='text-white text-lg justify mt-4 text-opacity-50 tracking-wide text-justify'>
+              Testico has a dark, easy-on-the-eyes design, for easy management and easy reading. Testico
+              also provides markdown (bold, italic, underline, image, list, etc.) to provide variations on the
+              questions. You can also provide custom themes for your tests, choose wisely for the color schemes though.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className='py-32'>
+        <div className='mb-24 w-full relative lg:w-2/3 mx-auto'>
+          <h2 className='text-white text-3xl font-light'>
+            Free & Open Source.
+          </h2>
+          <p className='text-xl mt-4 text-white/50 tracking-wide'>
+            Services provided here are free, but you can also support me by donating me.
+            Web Applications like this should keep no secret. Therefore the frontend codes are public and open source.
+            You can view them at my <Link href='https://github.com/1mmunity/Testico'>GitHub Repository</Link>.
+            Feel free to open a pull request, or an issue if you find one!
+            The backend is a secret though :)
+          </p>
+          <ButtonLink text='Go to Repository' className='mt-8' href='https://github.com/1mmunity/Testico' />
+          <i className='fab fa-react very-big text-gray-400/10 absolute -right-32 top-0'></i>
+        </div>
+        <div className='w-full relative lg:w-2/3 mx-auto'>
+          <h2 className='text-white text-3xl font-light'>
+            Realtime Updating.
+          </h2>
+          <p className='text-xl mt-4 text-white/50 tracking-wide'>
+            Testico is a realtime application. This means that when you update or edit a test,
+            they are immidiately updated for students too, although it requires constant internet
+            connection the server, it is a small price to pay for a huge amount of helpful features
+            for both students and teachers. Either way you still need to be connected to the internet
+            to submit your tests.
+          </p>
+          <i className='fas fa-history very-big text-gray-400/10 absolute -left-32 top-0'></i>
+        </div>
+      </div>
+      <div>
+        <h1 className='font-bold uppercase text-white/25 mb-2 select-none'>Preview</h1>
+        <div className='grid lg:grid-cols-3 gap-8 mb-14'>
+          <div className='p-5 bg-gray-800 shadow-md overflow-hidden rounded-lg text-justify sm:text-lg w-full relative'>
+            <input type='checkbox' className='absolute -top-1.5 right-3 appearance-none cursor-pointer text-gray-700 checked:text-green-400 fas fa-bookmark text-6xl' />
+            <div className='py-1 px-2 text-green-400 bg-green-400/5 rounded-lg text-xs w-max'>5 Points</div>
+            <Markdown className='mt-2 mb-4 text-white font-light tracking-wide'>
+              {markdownExample}
+            </Markdown>
+            <div>
+              <p className='text-gray-600 uppercase font-bold text-sm select-none'>Answer</p>
+              <Radio name='q' defaultChecked>{`1, 4, 6 **(By the way, the answers are markdown supported too.)**`}</Radio>
+              <Radio name='q'>![Number Example](https://i.postimg.cc/FK90yx5z/num-Example2.png)</Radio>
+              <Radio name='q'>1, 5, 6</Radio>
+              <Radio name='q'>{`
+| Answer 1 | Answer 2 | Answer 3 | Another Cell |
+|---|---|---|---|
+| 1 | 4 | 8 | Something |
+`}</Radio>
+            </div>
+          </div>
+          <div className='bg-gray-800 shadow-md rounded-lg w-full relative'>
+            <div className='w-full p-5 rounded-t-lg relative'>
+              <p className='text-center text-gray-600 text-lg font-bold'>
+                <i className='fas fa-comment-alt mr-1'></i> Chat
+              </p>
+              <i className='fas fa-times cursor-pointer absolute top-3 right-3 text-gray-600 hover:text-gray-500'></i>
+            </div>
+            <div className='p-5 pb-44 tracking-wide font-light'>
+              <div className='mb-5'>
+                <p className='text-gray-500 text-xs font-bold'>{`Williams `}<span className='text-green-400'>(Teacher)</span></p>
+                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tl-none w-full'>
+                  Hello all! Everything okay?
+                </div>
+              </div>
+              <div className='mb-5 text-right'>
+                <p className='text-gray-500 text-xs font-bold'>{`You `}<span className='text-yellow-400'>(to Williams)</span></p>
+                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tr-none w-full'>
+                  Hello Mr. Williams, can you check out Question #4?
+                </div>
+              </div>
+              <div className='mb-5'>
+                <p className='text-gray-500 text-xs font-bold'>{`Williams `}<span className='text-green-400'>(Teacher)</span> <span className='text-yellow-400'>(to You)</span></p>
+                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tl-none w-full'>
+                  Ah! I see. Thanks for notifying me!
+                </div>
+              </div>
+              <div className='mb-5'>
+                <p className='text-gray-500 text-xs font-bold'>{`Williams `}<span className='text-green-400'>(Teacher)</span></p>
+                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tl-none w-full'>
+                  There was a spelling mistake in #4. I have already updated the test. If there are any more problems,
+                  please let me know.
+                </div>
+              </div>
+            </div>
+            <div className='bg-gray-600/10 p-5 rounded-b-lg absolute bottom-0 w-full'>
+              <p className='mb-1 text-white font-light tracking-wide text-xs'><span className='text-green-500 font-black'>Student:</span> You can only send chats to teachers.</p>
+              <TextareaAutosize 
+              className='rounded-xl bg-gray-700 disabled:cursor-not-allowed outline-none resize-none w-full py-2 px-3 text-white text-sm font-light tracking-wide'
+              maxRows={4}
+              disabled
+              />
+              <p className='text-center text-xs text-gray-500'>click <span className='font-bold'>enter</span> to send.</p>
+            </div>
+          </div>
+          <div className='p-5 bg-gray-800 rounded-lg shadow-md'>
+            <div className='text-center text-gray-600 text-lg font-bold mb-5'>
+              <i className='fas fa-clipboard-list mr-1'></i> Logs
+            </div>
+            {[{
+              test: 'Biology I',
+              name: 'Jeremy'
+            },
+            {
+              test: 'Mathematics I',
+              name: 'John' 
+            },
+            {
+              test: 'Mathematics I',
+              name: 'Lilly'
+            },
+            {
+              test: 'Biology I',
+              name: 'Bob'
+            }].map((v, i) => <div className='p-3 bg-gray-700 mb-2 hover:-translate-y-1 border-2 border-gray-600 duration-150 hover:border-green-400' key={i}>
+              <p className='text-xs text-green-400 bg-green-400/10 w-max px-2 py-0.5 rounded'>{v.test}</p>
+              <p className='text-light tracking-wide mt-2 text-sm text-gray-300'><span className='font-bold'>{v.name}</span> has submitted the test.</p>
+            </div>)}
+          </div>
+        </div>
+      </div>
+      <div className='w-full relative overflow-hidden sm:w-max shadow-lg bg-gradient-to-r font-light tracking-wide from-purple-600 to-indigo-500 text-purple-100 px-8 p-4 m-auto'>
+        <p className='relative z-10'>What are you waiting for? <Link className='font-bold' href='/login'>Create a test now!</Link></p>
+        <i className='absolute very-big fas fa-fingerprint text-white opacity-10 -top-10'></i>
+      </div>
+    </div>
     </>
   )
 }
