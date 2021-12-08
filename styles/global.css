@@ -27,6 +27,10 @@ body {
   font-size: 15rem;
 }
 
+.very-big-2 {
+  font-size: 20rem;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
@@ -40,4 +44,33 @@ body {
 
 .linenumber {
   color: rgba(156, 163, 175, .3) !important;
+}
+
+.bottom-to-top {
+  animation: 1s bottom-to-top ease forwards;
+}
+
+@keyframes bottom-to-top {
+  from {
+    transform: translateY(.5rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.right-to-left {
+  animation: .2s right-to-left ease forwards;
+}
+
+@keyframes right-to-left {
+  from { 
+    transform: translateX(.5rem);
+    opacity: 0%;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 100%;
+  }
 }

@@ -3,7 +3,7 @@ import Link from "../components/Link";
 import React from "react";
 import Markdown from "../components/Markdown";
 import Radio from "../components/Radio";
-import TextareaAutosize from "react-textarea-autosize";
+import QuestionCard from "../components/QuestionCard";
 
 const markdownExample = `
 # Heading  
@@ -28,6 +28,18 @@ Above is a horizontal line.
 > Both basic syntax and extended syntax are supported. You can also bookmark a question
 > and return to it later.
 `.trim()
+
+const exampleAnswerMarkdown = [
+  `1, 4, 6 **(By the way, the answers are markdown supported too.)**`,
+  '![Number Example](https://i.postimg.cc/FK90yx5z/num-Example2.png)',
+  `
+- 1
+- 5
+- 6`.trim(),
+  `| Answer 1 | Answer 2 | Answer 3 | Another Cell |
+|---|---|---|---|
+| 1 | 4 | 8 | Something |`
+]
 
 export default function Home() {
   return (
@@ -120,92 +132,29 @@ export default function Home() {
       </div>
       <div>
         <h1 className='font-bold uppercase text-white/25 mb-2 select-none'>Preview</h1>
-        <div className='grid lg:grid-cols-3 gap-8 mb-14'>
-          <div className='p-5 bg-gray-800 shadow-md overflow-hidden rounded-lg text-justify sm:text-lg w-full relative'>
-            <input type='checkbox' className='absolute -top-1.5 right-3 appearance-none cursor-pointer text-gray-700 checked:text-green-400 fas fa-bookmark text-6xl' />
-            <div className='py-1 px-2 text-green-400 bg-green-400/5 rounded-lg text-xs w-max'>5 Points</div>
-            <Markdown className='mt-2 mb-4 text-white font-light tracking-wide'>
+        <div className='grid lg:grid-cols-2 gap-x-8 gap-y-2 mb-14'>
+          <QuestionCard
+          points='5'
+          name='q'
+          answers={exampleAnswerMarkdown}
+          radio={(v, i, n) => <Radio key={i} defaultChecked={i == 0} name={n}>{v}</Radio>}
+          >
+            {markdownExample}
+          </QuestionCard>
+          <div className='bg-gray-700/10 shadow border-2 border-gray-500/10 text-gray-400 rounded-lg p-5'>
+            <h6 className='tracking-wide font-light text-sm mb-1 text-white/20 select-none'>Raw Markdown</h6>
+            <p className='whitespace-pre-wrap'>
               {markdownExample}
-            </Markdown>
-            <div>
-              <p className='text-gray-600 uppercase font-bold text-sm select-none'>Answer</p>
-              <Radio name='q' defaultChecked>{`1, 4, 6 **(By the way, the answers are markdown supported too.)**`}</Radio>
-              <Radio name='q'>![Number Example](https://i.postimg.cc/FK90yx5z/num-Example2.png)</Radio>
-              <Radio name='q'>1, 5, 6</Radio>
-              <Radio name='q'>{`
-| Answer 1 | Answer 2 | Answer 3 | Another Cell |
-|---|---|---|---|
-| 1 | 4 | 8 | Something |
-`}</Radio>
-            </div>
-          </div>
-          <div className='bg-gray-800 shadow-md rounded-lg w-full relative'>
-            <div className='w-full p-5 rounded-t-lg relative'>
-              <p className='text-center text-gray-600 text-lg font-bold'>
-                <i className='fas fa-comment-alt mr-1'></i> Chat
-              </p>
-              <i className='fas fa-times cursor-pointer absolute top-3 right-3 text-gray-600 hover:text-gray-500'></i>
-            </div>
-            <div className='p-5 pb-44 tracking-wide font-light'>
-              <div className='mb-5'>
-                <p className='text-gray-500 text-xs font-bold'>{`Williams `}<span className='text-green-400'>(Teacher)</span></p>
-                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tl-none w-full'>
-                  Hello all! Everything okay?
-                </div>
+            </p>
+            <div className='mt-7'>
+              <h6 className='tracking-wide font-light text-sm mb-1 text-white/20 select-none'>Answers Markdown</h6>
+              <div className='whitespace-pre-wrap grid divide-y divide-gray-700'>
+                {exampleAnswerMarkdown.map((v, i) => <p key={i} className={i == 0 ? 'pb-4' : 'py-4'}>{v}</p>)}
               </div>
-              <div className='mb-5 text-right'>
-                <p className='text-gray-500 text-xs font-bold'>{`You `}<span className='text-yellow-400'>(to Williams)</span></p>
-                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tr-none w-full'>
-                  Hello Mr. Williams, can you check out Question #4?
-                </div>
-              </div>
-              <div className='mb-5'>
-                <p className='text-gray-500 text-xs font-bold'>{`Williams `}<span className='text-green-400'>(Teacher)</span> <span className='text-yellow-400'>(to You)</span></p>
-                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tl-none w-full'>
-                  Ah! I see. Thanks for notifying me!
-                </div>
-              </div>
-              <div className='mb-5'>
-                <p className='text-gray-500 text-xs font-bold'>{`Williams `}<span className='text-green-400'>(Teacher)</span></p>
-                <div className='text-white/75 mt-1 text-sm rounded-lg rounded-tl-none w-full'>
-                  There was a spelling mistake in #4. I have already updated the test. If there are any more problems,
-                  please let me know.
-                </div>
-              </div>
+              <Markdown className='text-justify'>
+{'> You don\'t need to always do these by hand. There are a lot of markdown tools out there, such as [tablesgenerator.com](https://www.tablesgenerator.com/markdown_tables) for creating tables in markdown.'}
+              </Markdown>
             </div>
-            <div className='bg-gray-600/10 p-5 rounded-b-lg absolute bottom-0 w-full'>
-              <p className='mb-1 text-white font-light tracking-wide text-xs'><span className='text-green-500 font-black'>Student:</span> You can only send chats to teachers.</p>
-              <TextareaAutosize 
-              className='rounded-xl bg-gray-700 disabled:cursor-not-allowed outline-none resize-none w-full py-2 px-3 text-white text-sm font-light tracking-wide'
-              maxRows={4}
-              disabled
-              />
-              <p className='text-center text-xs text-gray-500'>click <span className='font-bold'>enter</span> to send.</p>
-            </div>
-          </div>
-          <div className='p-5 bg-gray-800 rounded-lg shadow-md'>
-            <div className='text-center text-gray-600 text-lg font-bold mb-5'>
-              <i className='fas fa-clipboard-list mr-1'></i> Logs
-            </div>
-            {[{
-              test: 'Biology I',
-              name: 'Jeremy'
-            },
-            {
-              test: 'Mathematics I',
-              name: 'John' 
-            },
-            {
-              test: 'Mathematics I',
-              name: 'Lilly'
-            },
-            {
-              test: 'Biology I',
-              name: 'Bob'
-            }].map((v, i) => <div className='p-3 bg-gray-700 mb-2 hover:-translate-y-1 border-2 border-gray-600 duration-150 hover:border-green-400' key={i}>
-              <p className='text-xs text-green-400 bg-green-400/10 w-max px-2 py-0.5 rounded'>{v.test}</p>
-              <p className='text-light tracking-wide mt-2 text-sm text-gray-300'><span className='font-bold'>{v.name}</span> has submitted the test.</p>
-            </div>)}
           </div>
         </div>
       </div>

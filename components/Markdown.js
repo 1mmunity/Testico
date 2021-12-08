@@ -74,10 +74,13 @@ const components = {
     return <div className='font-bold text-sm' {...props} />
   },
   blockquote({ node, ...props }) {
-    return <blockquote className='border-l-2 border-green-400 bg-green-400/5 p-2 px-4 my-3 rounded-r' {...props}/>
+    return <blockquote className='border-l-2 text-white font-light tracking-wide border-green-400 bg-green-400/5 p-2 px-4 my-3 rounded-r' {...props}/>
   },
   img({ node, ...props }) {
     return <img className='rounded-lg block shadow-md' {...props}/>
+  },
+  ul({ node, ...props }) {
+    return <ul className='list-disc list-inside w-full rounded-lg' {...props} />
   }
 }
 
